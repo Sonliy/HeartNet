@@ -1,6 +1,7 @@
 # HeartNet
-The HeartNet Soure Code  
-##requirment:
+The HeartNet Soure Code    
+[fig] ./fig1.png
+## requirment:  
             numpy==1.22.4  
             torch==1.8.1  
             cuda ==11.1  
