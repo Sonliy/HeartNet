@@ -10,7 +10,7 @@ The HeartNet Soure Code
             opencv==4.6.0  
             echonet==1.0  
             
-# dataset
+# Dataset
 
 The datasets from A public cardiac ultrasound image from Stanford University, consisting of 10,030 echocardiographic videos  
 [url] https://echonet.github.io/dynamic/
