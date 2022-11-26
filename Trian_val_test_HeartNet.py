@@ -1,4 +1,4 @@
-"""   3090Functions for training and running segmentation."""
+"""   Functions for training and running segmentation."""
 import math
 import os
 import time
