@@ -1,6 +1,6 @@
 # HeartNet
 The HeartNet Soure Code    
-[fig] ./fig1.png
+[./fig1.png](https://github.com/Sonliy/HeartNet/blob/main/Fig1.png)
 ## requirment:  
             numpy==1.22.4  
             torch==1.8.1  
