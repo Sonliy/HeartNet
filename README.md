@@ -11,7 +11,7 @@ The HeartNet Soure Code
 # dataset
 
 The datasets from A public cardiac ultrasound image from Stanford University, consisting of 10,030 echocardiographic videos  
-[url]https://echonet.github.io/dynamic/
+[url] https://echonet.github.io/dynamic/
 
 
             
