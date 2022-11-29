@@ -1,4 +1,4 @@
-"""   Functions for training and running segmentation."""
+"""   训练——验证——测试    """
 import math
 import os
 import time
@@ -29,9 +29,9 @@ def structure_loss(pred, mask):
     return (wbce + wiou).mean()
 
 def run(
-    data_dir=r"../../a4c-video-dir",
+    data_dir=r"../../a4c-video-dir",  // 数据路径
     output=None,
-    model_name="seg_trans_loss532",
+    model_name="HeartNet",
     pretrained=False,
 
     weights=None,
@@ -135,7 +135,7 @@ def run(
                 f.flush()
             scheduler.step()
 
-
+       //保存每轮的checkpoint
             save = {
                 'epoch': epoch,
                 'state_dict': model.state_dict(),
@@ -184,7 +184,7 @@ def run(
                                     )
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=2, num_workers=num_workers, shuffle=False, pin_memory=False, collate_fn=_video_collate_fn)
 
-    # Save videos with segmentation
+   
     if save_video and not all(os.path.isfile(os.path.join(output, "videos", f)) for f in dataloader.dataset.fnames):
         # Only run if missing videos
 
@@ -358,7 +358,7 @@ def run_epoch(model, dataloader, train, optim, device):
                 loss_large_2 = torch.nn.functional.binary_cross_entropy_with_logits(y_large[:, 0, :, :], large_trace, reduction="sum")
 
                 # loss_large = torch.nn.functional.binary_cross_entropy_with_logits(y_large[:, 0, :, :], large_trace, reduction="sum")
-                loss_large = 0.4 * loss_large_2 + 0.3 * loss_large_3 + 0.3 * loss_large_4
+                loss_large = 0.5 * loss_large_2 + 0.3 * loss_large_3 + 0.2 * loss_large_4
                 # Compute pixel intersection and union between human and computer segmentations')
                 large_inter += np.logical_and(y_large[:, 0, :, :].detach().cpu().numpy() > 0., large_trace[:, :, :].detach().cpu().numpy() > 0.).sum()
                 large_union += np.logical_or(y_large[:, 0, :, :].detach().cpu().numpy() > 0., large_trace[:, :, :].detach().cpu().numpy() > 0.).sum()
@@ -378,7 +378,7 @@ def run_epoch(model, dataloader, train, optim, device):
                 loss_small_3 = torch.nn.functional.binary_cross_entropy_with_logits(lateral_map_6[:, 0, :, :], small_trace, reduction="sum")
                 loss_small_2 = torch.nn.functional.binary_cross_entropy_with_logits(y_small[:, 0, :, :], small_trace, reduction="sum")
                 # loss_large = torch.nn.functional.binary_cross_entropy_with_logits(y_large[:, 0, :, :], large_trace, reduction="sum")
-                loss_small = 0.4 * loss_small_2 + 0.3 * loss_small_3 + 0.3 * loss_small_4
+                loss_small = 0.5 * loss_small_2 + 0.3 * loss_small_3 + 0.2 * loss_small_4
                 # y_small = model(small_frame)["out"]
                 # loss_small = torch.nn.functional.binary_cross_entropy_with_logits(y_small[:, 0, :, :], small_trace, reduction="sum")
                 # Compute pixel intersection and union between human and computer segmentations
